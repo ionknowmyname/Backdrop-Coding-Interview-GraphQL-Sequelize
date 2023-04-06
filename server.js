@@ -1,18 +1,12 @@
 const express = require("express");
 const dotenv = require("dotenv");
 const { graphqlHTTP } = require("express-graphql");
-const { connectDB } = require("./db");
-const schema = require("./graphql/schema");
 
-const { authenticate } = require("./config/authentication");
+const schema = require("./graphql/schema");
 
 const app = express();
 
 dotenv.config();
-
-connectDB();
-
-app.use(authenticate);
 
 app.get("/", (req, res) => {
     res.json({ msg: "Tested & Trusted " });

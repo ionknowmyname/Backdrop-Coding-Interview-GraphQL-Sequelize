@@ -1,32 +1,26 @@
-const { GraphQLSchema, GraphQLObjectType } = require("graphql")
-
+const { GraphQLSchema, GraphQLObjectType } = require("graphql");
 
 // Import queries
-const { 
-    getAllUsers, getUserById, getAllProjects, getProjectById, getProjectByTitle, 
-    getAllTasksByProjectTitle, getAllTasksByProjectId, getTaskById, getTaskByTitle 
-} = require("./queries")
+const { getAccountNameByAccountNumber } = require("./queries");
 
 // Import mutations
-const { registerUser, loginUser, createProject, createTask, updateProjectStatusById, deleteProjectById } = require("./mutations")
+const { verifyUser } = require("./mutations");
 
 // Define QueryType
 const QueryType = new GraphQLObjectType({
     name: "QueryType",
     description: "Queries",
-    fields: { getAllUsers, getUserById, getAllProjects, getProjectById, getProjectByTitle, 
-        getAllTasksByProjectTitle, getAllTasksByProjectId, getTaskById, getTaskByTitle },
-})
+    fields: { getAccountNameByAccountNumber },
+});
 
 // Define MutationType
 const MutationType = new GraphQLObjectType({
     name: "MutationType",
     description: "Mutations",
-    fields: { registerUser, loginUser, createProject, createTask, updateProjectStatusById, deleteProjectById },
-})
-
+    fields: { verifyUser },
+});
 
 module.exports = new GraphQLSchema({
     query: QueryType,
-    mutation: MutationType
-})
+    mutation: MutationType,
+});
