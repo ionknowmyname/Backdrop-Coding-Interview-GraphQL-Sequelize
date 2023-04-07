@@ -9,7 +9,9 @@
         "unmigrate": "npx sequelize-cli db:migrate:undo",
         "make-seed": "npx sequelize-cli seed:generate --name demo-user",
         "run-seed": "npx sequelize-cli db:seed:all",
-        "start": "nodemon server.js"
+        "start": "nodemon index.js",
+        "test": "jest --verbose",
+        "single-test": "jest --forceExit --runInBand --verbose --ci -- index.test.js"
     },
     "author": "Faithful Olaleru",
     "license": "ISC",
@@ -26,6 +28,7 @@
     "devDependencies": {
         "jest": "^29.5.0",
         "nodemon": "^2.0.22",
-        "sequelize-cli": "^6.6.0"
+        "sequelize-cli": "^6.6.0",
+        "supertest": "^6.3.3"
     }
 }

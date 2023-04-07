@@ -8,19 +8,20 @@ const app = express();
 
 dotenv.config();
 
-app.get("/", (req, res) => {
-    res.json({ msg: "Tested & Trusted " });
-});
+const createServer = () => {
+    app.get("/", (req, res) => {
+        res.json({ msg: "Tested & Trusted " });
+    });
 
-app.use(
-    "/graphql",
-    graphqlHTTP({
-        schema: schema,
-        graphiql: true,
-    })
-);
+    app.use(
+        "/graphql",
+        graphqlHTTP({
+            schema: schema,
+            graphiql: true,
+        })
+    );
 
-const PORT = process.env.PORT || 8000;
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}.`);
-});
+    return app;
+};
+
+module.exports = createServer;
