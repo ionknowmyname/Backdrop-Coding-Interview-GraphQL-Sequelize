@@ -13,7 +13,7 @@ const getAccountNameByAccountNumber = {
     async resolve(_, args) {
         const account_number = args.user_account_number;
         const bank_code = args.user_bank_code;
-        const finalName = "";
+        let finalName = "";
 
         let foundUser = await Utility.findUserByAccountNumber(account_number);
 
