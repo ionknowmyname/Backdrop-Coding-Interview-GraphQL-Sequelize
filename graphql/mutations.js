@@ -17,39 +17,46 @@ const verifyUser = {
         const account_name = args.user_account_name;
 
         let foundUser = await Utility.findUserByAccountNumber(account_number);
+        // console.log("foundUser[0].User --> ", foundUser[0].dataValues);
+        console.log("foundUser --> ", foundUser);
+
+        // foundUser = foundUser[0].dataValues;
 
         if (foundUser.id !== null) {
             // found valid user
-            const responseData = Utility.callPayStack(
+            const responseData = await Utility.callPayStack(
                 account_number,
                 bank_code
             );
+            console.log("responseData --> ", responseData);
 
             if (responseData.status === true) {
                 //  valid user gotten for bankcode & account number
 
                 const { first_name, last_name, middle_name } = foundUser;
-                const dbName = "{0} {1} {2}".format(
-                    last_name,
-                    first_name,
-                    middle_name
-                );
+                const dbName = `${last_name} ${first_name} ${middle_name}`;
 
                 // check that the names are same/similar
-                const isMatch = Utility.compareName(
+                const isMatch = await Utility.compareName(
                     dbName,
                     responseData.data.account_name
                 );
+                console.log("isMatch --> ", isMatch);
 
                 if (isMatch) {
-                    // names match, update user to verifed
-                    foundUser = Utility.updateUserStatus(account_number, true);
+                    // names match, update user to verified
+                    foundUser = await Utility.updateUserStatus(
+                        account_number,
+                        true
+                    );
                 }
+                // else do nothing
             }
         } else {
             throw new Error("No user with account number found");
         }
 
+        console.log("foundUser to return --> ", foundUser);
         return foundUser;
     },
 };

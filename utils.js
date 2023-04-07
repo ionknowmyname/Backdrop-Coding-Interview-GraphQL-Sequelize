@@ -1,10 +1,15 @@
 const axios = require("axios");
 const db = require("./models");
-const User = db.user;
+const User = db.User;
 const Op = db.Sequelize.Op;
 
 const compareName = async (dbName, payStackName) => {
     // if they match, return true
+    dbName = dbName.toUpperCase();
+
+    if (dbName === payStackName) return true;
+
+    return false;
 };
 
 const compareName2 = async (dbName, payStackName) => {
@@ -22,7 +27,7 @@ const findUserByAccountNumber = async (accountNumber) => {
 
     const user = await User.findAll({ where: condition });
 
-    return user;
+    return user[0].dataValues;
 };
 
 const callPayStack = async (accountNumber, bankCode) => {
@@ -47,10 +52,14 @@ const updateUserStatus = async (accountNumber, newStatus) => {
         },
     };
 
-    const user = await User.findAll({ where: condition });
+    let user = await User.findAll({ where: condition });
+    user = user[0];
+    console.log("user in utils --> ", user);
+    console.log("user.dataValues in utils --> ", user.dataValues);
 
-    user.set({
+    await user.update({
         is_verified: newStatus,
+        updatedAt: new Date(),
     });
 
     user = await user.save();

@@ -19,7 +19,7 @@ const getAccountNameByAccountNumber = {
 
         if (foundUser.id !== null) {
             // found valid user
-            const responseData = Utility.callPayStack(
+            const responseData = await Utility.callPayStack(
                 account_number,
                 bank_code
             );
@@ -28,19 +28,18 @@ const getAccountNameByAccountNumber = {
                 //  valid user gotten for bankcode & account number
 
                 const { first_name, last_name, middle_name } = foundUser;
-                const dbName = "{0} {1} {2}".format(
-                    last_name,
-                    first_name,
-                    middle_name
-                );
+                const dbName = `${last_name} ${first_name} ${middle_name}`;
 
                 // check that the names are same/similar
-                finalName = Utility.compareName2(
+                finalName = await Utility.compareName2(
                     dbName,
                     responseData.data.account_name
                 );
 
-                foundUser = Utility.updateUserStatus(account_number, true);
+                foundUser = await Utility.updateUserStatus(
+                    account_number,
+                    true
+                );
             }
         } else {
             throw new Error("No user with account number found");
