@@ -6,6 +6,9 @@
     "scripts": {
         "make-model": "npx sequelize-cli model:generate --name User --attributes first_name:string,last_name:string,middle_name:string,account_number:string,bank_code:string,is_verified:boolean",
         "migrate": "npx sequelize-cli db:migrate",
+        "unmigrate": "npx sequelize-cli db:migrate:undo",
+        "make-seed": "npx sequelize-cli seed:generate --name demo-user",
+        "run-seed": "npx sequelize-cli db:seed:all",
         "start": "nodemon server.js"
     },
     "author": "Faithful Olaleru",
