@@ -25,3 +25,11 @@ PICTURES:
 
 ![Getting Started](./images/mutation.png)
 ![Getting Started](./images/query.png)
+
+(LEVENSHTEIN vs. DAMERAU-LEVENSHTEIN) DISTANCE ALGORITHM
+
+-   Damerau-Levenshtein algorithm also takes into account transpositions in addition to insert, delete and
+    substitutions that are in the pure Levenshtein algorithm. We don't want transpositions because of the cliche
+    example of 'tea and eat'. For purposes of verifying account name, we should not be able to transpose/swap characters
+    to match each other, tea and eat should clearly not match when verifying account name. We should only be able to add
+    or remove characters, that's why the pure Levenshtein is better off.
