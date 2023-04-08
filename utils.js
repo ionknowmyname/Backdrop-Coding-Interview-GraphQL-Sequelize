@@ -54,8 +54,8 @@ const updateUserStatus = async (accountNumber, newStatus) => {
 
     let user = await User.findAll({ where: condition });
     user = user[0];
-    console.log("user in utils --> ", user);
-    console.log("user.dataValues in utils --> ", user.dataValues);
+    // console.log("user in utils --> ", user);
+    // console.log("user.dataValues in utils --> ", user.dataValues);
 
     await user.update({
         is_verified: newStatus,
